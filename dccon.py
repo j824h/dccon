@@ -29,6 +29,9 @@ def save_con(path, no):
     save(path + '\\' + name, con_file.read())
 
 def load_package(idx):
+    '''
+    Load package information from index idx.
+    '''
     url = 'http://dccon.dcinside.com/index/package_detail'
     headers = {
         'X-Requested-With': 'XMLHttpRequest',
@@ -41,6 +44,9 @@ def load_package(idx):
     return package
 
 def save_package(package):
+    '''
+    Save package information, log, con images from loaded package.
+    '''
     path = package['info']['title']
     save_info = 'Version: 1.0 \n' + 'Save time: ' + time.strftime("%c")
     os.mkdir(path)
@@ -50,4 +56,7 @@ def save_package(package):
         save_con(path, con['path'])
 
 def quick(idx):
+    '''
+    The one quick command to use.
+    '''
     save_package(load_package(idx))
