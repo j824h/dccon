@@ -31,13 +31,16 @@ def save_s(path, string):
         f.write(string)
         f.close()
 
+      f.close()
+
+
 def save_con(path, no):
     """
     Save the con image with path number string no.
     """
     con_file = con_open(no)
     name = con_file.info().get('Content-Disposition').split('=')[1]
-    save_b(path + '\\' + name, con_file.read())
+    save_b(os.path.join(path, name), con_file.read())       
 
 
 def load_package(idx):
@@ -45,8 +48,7 @@ def load_package(idx):
     Load package information from index idx.
     """
     url = 'https://dccon.dcinside.com/index/package_detail'
-    headers = {
-        'X-Requested-With': 'XMLhttpsRequest',
+    headers = { 'X-Requested-With': 'XMLHttpRequest',
         'Cookie': 'ci_c='
         }
     data = ('ci_t=&package_idx='+str(idx)).encode()
@@ -63,9 +65,9 @@ def save_package(package):
     path = package['info']['title']
     save_info = 'Version: 1.1\n' + 'Save time: ' + time.strftime("%c")
     os.mkdir(path)
-    save_s(path + '\\' + 'package_details.json',
+    save_s(os.path.join(path, 'package_details.json'),
          json.dumps(package, ensure_ascii=False))
-    save_s(path + '\\' + 'save_info.txt', save_info)
+    save_s(os.path.join(path, 'save_info.txt'), save_info)       
     for con in package['detail']:
         save_con(path, con['path'])
 
