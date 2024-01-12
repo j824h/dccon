@@ -8,8 +8,8 @@ def con_open(no):
     """
     Open the con image file with path number string no.
     """
-    con_url = urllib.request.Request('http://dcimg1.dcinside.com/dccon.php?no='+no)
-    con_url.add_header('Referer', 'http://dccon.dcinside.com/')
+    con_url = urllib.request.Request('https://dcimg1.dcinside.com/dccon.php?no='+no)
+    con_url.add_header('Referer', 'https://dccon.dcinside.com/')
     con_file = urllib.request.urlopen(con_url)
     return con_file
 
@@ -44,9 +44,9 @@ def load_package(idx):
     """
     Load package information from index idx.
     """
-    url = 'http://dccon.dcinside.com/index/package_detail'
+    url = 'https://dccon.dcinside.com/index/package_detail'
     headers = {
-        'X-Requested-With': 'XMLHttpRequest',
+        'X-Requested-With': 'XMLhttpsRequest',
         'Cookie': 'ci_c='
         }
     data = ('ci_t=&package_idx='+str(idx)).encode()
